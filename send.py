@@ -1,11 +1,12 @@
 import pika, os, random
 
+# URL of RabbitMQ
 url = os.environ.get('CLOUDAMQP_URL', 'amqp://guest:guest@localhost:5672/%2f')
+# We generate a random number of requests to make
 messagesToSend = random.randint(150, 300)
 
 print('start to send ', messagesToSend)
 global count
-  # Send
 
 count = 0
 
@@ -19,7 +20,8 @@ for x in range(messagesToSend):
     channel.basic_publish(exchange='',
                       routing_key='arqsub',
                       body='ALERT'+str(x))
-
+    
+    # we count the number of messages that go out
     count = count + 1
 
 
